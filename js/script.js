@@ -1,7 +1,7 @@
 // Array to hold all blog posts
 let posts = []
 
-// Variable to track if we're editing by storing post ID
+// Variable to track if we're editing or del;eting by storing post ID
 let editingPostId = null
 
 // +++++++++++++++++++++
@@ -135,7 +135,7 @@ function createPostCard(post) {
     postCard.className = 'post-card'
     postCard.setAttribute('data-id', post.id)
 
-    // Build the HTML structure
+    // Build the HTML structure for poost card
     postCard.innerHTML = `
         <div class="post-header">
             <h3 class="post-title">${escapeHtml(post.title)}</h3>
@@ -150,3 +150,134 @@ function createPostCard(post) {
 
     return postCard
 }
+
+function escapeHtml(text) {
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
+}
+
+/**
+ * Handle form submission (for both create and edit)
+ */
+function handleFormSubmit(e) {
+    // Prevent default form submission
+    e.preventDefault()
+
+    // Validate the form
+    if (!validateForm()) {
+        return
+    }
+
+    // Get trimmed values
+    const title = postTitleInput.value.trim()
+    const content = postContentInput.value.trim()
+
+    if (editingPostId) {
+        // Edit Mode: Update existing post
+        const postIndex = posts.findIndex(post => post.id === editingPostId)
+        if (postIndex !== -1) {
+            posts[postIndex].title = title
+            posts[postIndex].content = content
+            posts[postIndex].timestamp = getCurrentTimestamp() + ' (edited)'
+        }
+    } else {
+        // Create Mode: Add new post
+        const newPost = {
+            id: generateUniqueId(),
+            title: title,
+            content: content,
+            timestamp: getCurrentTimestamp()
+        }
+        posts.unshift(newPost) // Add to beginning of array
+    }
+
+    // Save to localStorage
+    saveToLocalStorage()
+
+    // Re-render posts
+    renderPosts()
+
+    // Reset form
+    resetFormToCreateMode()
+}
+
+/**
+ * Handle delete button click using event delegation
+ */
+function handleDelete(e) {
+    // Check if delete button was clicked
+    if (e.target.classList.contains('delete-btn')) {
+        // Get the post ID
+        const postId = e.target.getAttribute('data-id')
+        // Confirm deletion
+        if (confirm('Are you sure you want to delete this post?')) {
+            // Remove post from array
+            posts = posts.filter(post => post.id !== postId)
+            // Save to localStorage
+            saveToLocalStorage()
+            // Re-render posts
+            renderPosts()
+            // If we were editing this post, reset form
+            if (editingPostId === postId) {
+                resetFormToCreateMode()
+            }
+        }
+    }
+}
+
+/**
+ * Handle edit button click using event delegation
+ */
+function handleEdit(e) {
+    // Check if edit button was clicked
+    if (e.target.classList.contains('edit-btn')) {
+        // Get the post ID
+        const postId = e.target.getAttribute('data-id')
+
+        // Find the post
+        const post = posts.find(p => p.id === postId)
+
+        if (post) {
+            // Populate form with post data
+            postTitleInput.value = post.title
+            postContentInput.value = post.content
+
+            // Switch to edit mode
+            editingPostId = postId
+            formTitle.textContent = 'Edit Post'
+            submitBtn.textContent = 'Update Post'
+            cancelBtn.style.display = 'inline-block'
+
+            // Scroll to form
+            postForm.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+}
+
+/**
+ * Handle cancel button click
+ */
+function handleCancel() {
+    resetFormToCreateMode()
+}
+
+/**
+ * Initialize the application
+ */
+function init() {
+    // Load posts from localStorage
+    loadFromLocalStorage()
+
+    // Renders posts
+    renderPosts()
+
+    // Add event listeners
+    postForm.addEventListener('submit', handleFormSubmit)
+    postsContainer.addEventListener('click', handleDelete)
+    postsContainer.addEventListener('click', handleEdit)
+    cancelBtn.addEventListener('click', handleCancel)
+}
+
+// Start the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', init)
