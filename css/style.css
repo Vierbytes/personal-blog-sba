@@ -224,6 +224,12 @@ button {
     padding: 40px;
 }
 
+#badges {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
@@ -330,8 +336,3 @@ button {
     }
 }
 
-#badges {
-    display: flex;
-    justify-content: center;
-    padding: 50px;
-}
