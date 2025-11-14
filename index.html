@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 My Personal Blog</h1>
+            <p>Write your thoughts and memories</p>
+        </header>
+
+        <section class="form-section">
+            <h2 id="form-title">Create New Post</h2>
+            <form id="post-form">
+                <div class="form-group">
+                    <label for="post-title">Post Title:</label>
+                    <input type="text" id="post-title" placeholder="Enter your post title...">
+                    <span class="error-message" id="title-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-content">Post Content:</label>
+                    <textarea id="post-content" rows="6" placeholder="Write your thoughts here..."></textarea>
+                    <span class="error-message" id="content-error"></span>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" id="submit-btn">Add Post</button>
+                    <button type="button" id="cancel-btn" class="cancel-btn" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="posts-section">
+            <h2>My Posts</h2>
+            <div id="posts-container">
+            </div>
+            <p id="no-posts-message" class="no-posts">Crickets... Start writing!</p>
+        </section>
+    </div>
+</body>
+</html>
