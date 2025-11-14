@@ -1,8 +1,12 @@
 // Array to hold all blog posts
 let posts = []
 
-// Variable to track if we're editing or del;eting by storing post ID
+// Variable to track if we're editing or deleting by storing post ID
 let editingPostId = null
+
+// Variable to track which post is being deleted
+let postToDeleteId = null
+
 
 // +++++++++++++++++++++
 // DOM ELEMENT SELECTION
@@ -24,6 +28,10 @@ const contentError = document.getElementById('content-error')
 const postsContainer = document.getElementById('posts-container')
 const noPostsMessage = document.getElementById('no-posts-message')
 
+// Delete modal elements
+const deleteModal = document.getElementById('delete-modal')
+const confirmDeleteBtn = document.getElementById('confirm-delete-btn')
+const cancelDeleteBtn = document.getElementById('cancel-delete-btn')
 
 /**
  * Generate a unique ID for each post
@@ -158,6 +166,46 @@ function escapeHtml(text) {
 }
 
 /**
+ * Show the delete confirmation modal
+ */
+function showDeleteModal(postId) {
+    postToDeleteId = postId
+    deleteModal.classList.add('show')
+}
+
+/**
+ * Hide the delete confirmation modal
+ */
+function hideDeleteModal() {
+    deleteModal.classList.remove('show')
+    postToDeleteId = null
+}
+
+/**
+ * Confirm and execute the deletion
+ */
+function confirmDelete() {
+    if (postToDeleteId) {
+        // Remove post from array
+        posts = posts.filter(post => post.id !== postToDeleteId)
+
+        // Save to localStorage
+        saveToLocalStorage()
+
+        // Re-render posts
+        renderPosts()
+
+        // If editing this post, reset form
+        if (editingPostId === postToDeleteId) {
+            resetFormToCreateMode()
+        }
+    }
+
+    // Hide the modal
+    hideDeleteModal()
+}
+
+/**
  * Handle form submission (for both create and edit)
  */
 function handleFormSubmit(e) {
@@ -210,22 +258,11 @@ function handleDelete(e) {
     if (e.target.classList.contains('delete-btn')) {
         // Get the post ID
         const postId = e.target.getAttribute('data-id')
-        // Confirm deletion
-        if (confirm('Are you sure you want to delete this post?')) {
-            // Remove post from array
-            posts = posts.filter(post => post.id !== postId)
-            // Save to localStorage
-            saveToLocalStorage()
-            // Re-render posts
-            renderPosts()
-            // If we were editing this post, reset form
-            if (editingPostId === postId) {
-                resetFormToCreateMode()
-            }
-        }
+
+        // Show the delete confirmation modal
+        showDeleteModal(postId)
     }
 }
-
 /**
  * Handle edit button click using event delegation
  */
@@ -277,6 +314,17 @@ function init() {
     postsContainer.addEventListener('click', handleDelete)
     postsContainer.addEventListener('click', handleEdit)
     cancelBtn.addEventListener('click', handleCancel)
+
+        // Modal event listeners
+    confirmDeleteBtn.addEventListener('click', confirmDelete)
+    cancelDeleteBtn.addEventListener('click', hideDeleteModal)
+
+    // Close modal when clicking outside of it
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === deleteModal) {
+            hideDeleteModal()
+        }
+    })
 }
 
 // Start the application when DOM is loaded

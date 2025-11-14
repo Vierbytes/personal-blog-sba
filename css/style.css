@@ -240,3 +240,92 @@ button {
         gap: 5px;
     }
 }
+
+/* Delete Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(to right, hsla(10, 36%, 53%, 0.405), hsla(229, 81%, 58%, 0.402) 150%);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.3);
+    max-width: 400px;
+    width: 90%;
+    animation: slideIn 0.3s ease;
+}
+
+.modal-content h3 {
+    color: hsl(0, 0%, 20%);
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.modal-content p {
+    color: hsl(0, 2%, 8%);
+    margin-bottom: 25px;
+    line-height: 1.6;
+    font-weight: 700;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.confirm-btn {
+    background: hsl(6, 78%, 57%);
+    color: hsl(0, 0%, 100%);
+    flex: 1;
+}
+
+.confirm-btn:hover {
+    background: hsl(6, 63%, 46%);
+}
+
+.cancel-modal-btn {
+    background: hsl(184, 9%, 62%);
+    color: hsl(0, 0%, 100%);
+    flex: 1;
+}
+
+.cancel-modal-btn:hover {
+    background: hsl(184, 6%, 53%);
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
