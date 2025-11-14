@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, hsl(1, 25%, 51%) 0%, hsl(15, 45%, 55%) 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+    background: hsl(0, 0%, 100%);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+}
+
+header h1 {
+    color: hsl(229, 36%, 39%);
+    margin-bottom: 10px;
+}
+
+header p {
+    color: hsl(0, 0%, 40%);
+    font-size: 14px;
+}
+
+/* Form Section */
+.form-section {
+    background: hsl(0, 0%, 100%);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+}
+
+.form-section h2 {
+    color: hsl(0, 0%, 20%);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: hsl(0, 0%, 20%);
+    font-weight: 600;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid hsl(0, 0%, 87%);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: hsl(229, 32%, 60%);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Error Messages */
+.error-message {
+    display: block;
+    color: hsl(6, 78%, 57%);
+    font-size: 13px;
+    margin-top: 5px;
+    min-height: 18px;
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#submit-btn {
+    background: linear-gradient(to right, hsl(10, 36%, 53%), hsl(229, 81%, 58%) 150%);
+    color: hsl(0, 0%, 100%);
+    flex: 1;
+}
+
+#submit-btn:hover {
+    background: hsl(231, 31%, 34%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px hsla(229, 76%, 66%, 0.4);
+}
+
+.cancel-btn {
+    background: hsl(184, 9%, 62%);
+    color: hsl(0, 0%, 100%);
+}
+
+.cancel-btn:hover {
+    background: hsl(184, 6%, 53%);
+}
+
+/* Posts Section */
+.posts-section {
+    background: hsl(0, 0%, 100%);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+}
+
+.posts-section h2 {
+    color: hsl(0, 0%, 20%);
+    margin-bottom: 20px;
+}
+
+#posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Individual Post Card */
+.post-card {
+    background: hsl(210, 17%, 98%);
+    border: 2px solid hsl(210, 16%, 93%);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.post-card:hover {
+    border-color: hsl(229, 76%, 66%);
+    box-shadow: 0 3px 10px hsla(229, 76%, 66%, 0.2);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 20px;
+    color: hsl(210, 29%, 24%);
+    font-weight: 700;
+    margin: 0;
+}
+
+.post-timestamp {
+    font-size: 12px;
+    color: hsl(184, 6%, 53%);
+}
+
+.post-content {
+    color: hsl(0, 0%, 33%);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.edit-btn {
+    background: hsl(204, 70%, 53%);
+    color: hsl(0, 0%, 100%);
+}
+
+.edit-btn:hover {
+    background: hsl(204, 64%, 44%);
+}
+
+.delete-btn {
+    background: hsl(6, 78%, 57%);
+    color: hsl(0, 0%, 100%);
+}
+
+.delete-btn:hover {
+    background: hsl(6, 63%, 46%);
+}
+
+.no-posts {
+    text-align: center;
+    color: hsl(184, 9%, 62%);
+    font-style: italic;
+    padding: 40px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    header,
+    .form-section,
+    .posts-section {
+        padding: 20px;
+    }
+
+    .post-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
