@@ -329,3 +329,9 @@ button {
         opacity: 1;
     }
 }
+
+#badges {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
